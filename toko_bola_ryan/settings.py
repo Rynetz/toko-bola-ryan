@@ -31,7 +31,12 @@ PRODUCTION = os.getenv('PRODUCTION', 'False').lower() == 'true'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1","muhammad.indi41-toko_bola_ryan-.pbp.cs.ui.ac.id"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "muhammad-indi41-toko-bola-ryan.pbp.cs.ui.ac.id"
+]
+
 
 
 # Application definition
@@ -144,3 +149,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+import socket
+print("ALLOWED_HOSTS:", ALLOWED_HOSTS)
+
