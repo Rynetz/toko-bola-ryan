@@ -37,7 +37,9 @@ ALLOWED_HOSTS = [
     "muhammad-indi41-toko-bola-ryan.pbp.cs.ui.ac.id"
 ]
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://muhammad-indi41-toko-bola-ryan.pbp.cs.ui.ac.id"
+]
 
 # Application definition
 

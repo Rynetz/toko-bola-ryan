@@ -7,3 +7,40 @@
 <p>{{ name }}</p>
 <h5>Class: </h5>
 <p>{{class}}</p>
+
+
+<a href="{% url 'main:create_product' %}">
+  <button>+ Add Product</button>
+</a>
+
+<hr>
+
+{% if not product_list %}
+<p>Belum ada produk di toko ini.</p>
+{% else %}
+
+{% for product in product_list %}
+<div>
+  <h2><a href="{% url 'main:product_details' product.id %}">{{ product.name }}</a></h2>
+
+  <p><b>category: {{ product.get_category_display }}</b>{% if product.is_featured %} | 
+    <b>Featured</b> {% endif %} <br>
+    price: {{product.price}}
+</p>
+
+  {% if product.thumbnail %}
+  <img src="{{ product.thumbnail }}" alt="thumbnail" width="150" height="100">
+  <br />
+  {% endif %}
+
+  {% if product.description %}
+  <p>{{product.description}}</p>
+  {% endif %}
+
+  <p><a href="{% url 'main:product_details' product.id %}"><button>See details</button></a></p>
+</div>
+
+<hr>
+{% endfor %}
+
+{% endif %}
