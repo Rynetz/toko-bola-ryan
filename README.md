@@ -36,3 +36,43 @@ Dengan begitu, Django menjadi pilihan yang tepat untuk memahami proses pengemban
 
 <h1>6. Apakah ada feedback untuk asisten dosen tutorial 1 yang telah kamu kerjakan sebelumnya?</h1>
 Tidak ada. Sejauh ini asdos telah menjelaskan tutorial 1 secara jelas sehingga saya dapat memahaminya.
+
+<h1>Tugas 3</h1>
+<h1>1. Jelaskan mengapa kita memerlukan data delivery dalam pengimplementasian sebuah platform?</h1>
+Data delivery memiliki peran penting dalam pengembangan sebuah platform karena menjadi sarana utama pertukaran informasi antara server dan klien. Melalui mekanisme ini, aplikasi dapat menampilkan serta memperbarui data secara dinamis dengan cara yang efisien, aman, dan kompatibel lintas sistem, termasuk saat melakukan komunikasi dengan API eksternal. Keberadaan data delivery juga memungkinkan pengguna merasakan pengalaman interaktif tanpa harus memuat ulang seluruh halaman, sekaligus mengoptimalkan penggunaan bandwidth dan meningkatkan skalabilitas sistem. Tanpa data delivery, platform tidak akan mampu menghadirkan informasi real-time, integrasi dengan layanan pihak ketiga, maupun penerapan kontrol akses yang efektif
+
+<h1>2. Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?</h1>
+Menurut saya, JSON lebih unggul dibandingkan XML karena formatnya lebih sederhana, ringkas, dan mudah dipahami, serta secara alami sesuai dengan struktur objek di banyak bahasa pemrograman populer seperti JavaScript, Python, maupun Java. JSON menggunakan pola key-value yang menyerupai dictionary pada Python, sehingga memudahkan pembacaan oleh manusia sekaligus pengolahan oleh mesin. Sebaliknya, XML cenderung lebih panjang dan repetitif karena setiap elemen memerlukan tag pembuka dan penutup, yang membuat ukuran data lebih besar dan proses parsing lebih lambat. Walaupun XML tetap relevan dalam situasi tertentu, misalnya ketika dibutuhkan validasi skema yang ketat atau dokumen dengan struktur yang kompleks, JSON kini lebih banyak digunakan berkat efisiensinya, kemudahan integrasi dengan API, serta dukungan luas di dunia pengembangan web modern
+
+<h1>3. Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?</h1>
+Dalam Django, method is_valid() berfungsi untuk memeriksa apakah data yang dikirimkan melalui form sudah sesuai dengan aturan validasi yang ditentukan. Saat pengguna mengisi dan mengirim form, data tersebut ditampung dalam sebuah objek form. Ketika kita memanggil form.is_valid(), Django akan melakukan serangkaian pengecekan otomatis, seperti memastikan setiap field memiliki nilai yang benar (misalnya tipe data, panjang input, dan aturan lain), menjalankan proses cleaning, serta validasi tambahan yang mungkin kita definisikan sendiri. Jika seluruh data lolos, maka akan mengembalikan True, sedangkan jika ada kesalahan akan menghasilkan False. Method ini penting karena hanya data yang sudah tervalidasi yang aman untuk diproses lebih lanjut, misalnya disimpan ke database atau dikirim ke layanan eksternal. Tanpa menggunakan is_valid(), ada kemungkinan data yang salah, kosong, atau tidak sesuai format ikut tersimpan dan menimbulkan bug maupun celah keamanan pada aplikasi Django
+
+<h1>4. Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?</h1>
+csrf_token adalah mekanisme keamanan yang digunakan untuk melindungi aplikasi dari serangan Cross-Site Request Forgery (CSRF). Token ini berupa nilai acak dan unik pada setiap sesi pengguna, yang disisipkan ke dalam form HTML ketika data dikirim melalui metode POST atau request yang berfungsi mengubah data. Saat form dikirim, server akan memverifikasi apakah token yang diterima sesuai dengan token yang sebelumnya diberikan kepada pengguna tersebut. Jika csrf_token tidak ada, server tidak bisa memastikan bahwa permintaan benar-benar berasal dari pengguna yang sah. Kondisi ini dapat dimanfaatkan penyerang dengan membuat situs atau tautan palsu yang secara diam-diam mengirim request ke server menggunakan identitas korban yang sedang login. Dengan demikian, csrf_token berfungsi mencegah aksi berbahaya di mana penyerang menipu browser korban untuk melakukan tindakan tanpa sepengetahuannya, sehingga menjaga keamanan serta integritas data aplikasi
+
+<h1>5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).</h1>
+1. Menambahkan fungsi di views.py untuk menampilkan data produk dalam format XML, JSON, serta XML by ID dan JSON by ID, sekaligus membuat fungsi untuk menambahkan produk baru dan menampilkan produk.
+
+2. Membuat file forms.py di dalam folder main yang berisi ProductForm dengan field-field yang diperlukan untuk proses penambahan produk.
+
+3. Mengatur urls.py pada direktori main dengan menambahkan routing URL untuk setiap view yang sudah dibuat.
+
+4. Mengisi main.html di direktori main/templates dengan menambahkan tombol Add Product yang mengarahkan ke halaman form penambahan produk, tombol Detail untuk melihat deskripsi lengkap produk, serta menyesuaikan tampilan halaman utama.
+
+5. Membuat dua file baru di dalam direktori main/templates, yaitu create_product.html untuk halaman penambahan produk baru dan product_details.html untuk menampilkan detail produk secara lengkap.
+
+<h1>6. Apakah ada feedback untuk asdos di tutorial 2 yang sudah kalian </h1>
+Tidak ada. Asdos sudah menjelaskan secara baik dan langsung menjawab pertanyaan saya dengan jelas
+
+<h1>Screenshot Postman</h1>
+1. JSON
+<img width="1470" height="956" alt="Screenshot 2025-09-17 at 03 42 36" src="https://github.com/user-attachments/assets/8bad95b4-5370-4e01-9a49-6365fe6c78c4" />
+
+2. XML
+<img width="1470" height="956" alt="Screenshot 2025-09-17 at 03 42 43" src="https://github.com/user-attachments/assets/fd2e83b2-3a44-4f4b-afb5-3ea3f1cc6e4c" />
+
+3. JSON by Id
+<img width="1470" height="956" alt="Screenshot 2025-09-17 at 03 42 52" src="https://github.com/user-attachments/assets/373ee9a3-799b-42eb-af4c-ea31de749487" />
+
+4. XML by Id
+<img width="1470" height="956" alt="Screenshot 2025-09-17 at 03 42 59" src="https://github.com/user-attachments/assets/fd4a3cd0-6ba5-4202-ac56-32615db0e867" />
