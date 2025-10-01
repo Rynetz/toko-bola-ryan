@@ -112,3 +112,36 @@ Django secara otomatis menggunakan cookie untuk session dan CSRF token.
 
 6. Menghubungkan Model Product dengan User
 Saya akan membuat model Product yang punya relasi ForeignKey ke model User. Dengan begitu, setiap produk akan punya pemilik yang jelas. User bisa melihat semua produk dan produk yang mereka buat sendiri.
+
+<h1>Tugas 5</h1>
+<h1>1. Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!</h1>
+Ketika sebuah elemen HTML dipengaruhi oleh banyak aturan CSS, browser akan memilih aturan mana yang berlaku berdasarkan tingkat prioritas. Secara umum, aturan bawaan browser memiliki prioritas paling rendah, lalu aturan dari stylesheet eksternal atau internal, kemudian inline style yang langsung ditulis pada elemen memiliki prioritas lebih tinggi. Setelah itu, selector juga berpengaruh, selector tag dianggap paling lemah, class dan pseudo-class lebih kuat, sedangkan ID lebih kuat lagi. Jika ada beberapa aturan dengan tingkat kekuatan yang sama, maka aturan yang ditulis paling akhir akan digunakan. Namun, jika sebuah aturan diberi tanda !important, maka ia akan mengalahkan aturan lainnya meskipun spesifisitasnya lebih rendah.
+
+<h1>2. Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design, serta jelaskan mengapa!</h1>
+Responsive design menjadi penting dalam pengembangan aplikasi web karena pengguna kini mengakses website melalui berbagai perangkat dengan ukuran layar berbeda, mulai dari ponsel, tablet, hingga komputer desktop. Tanpa desain yang responsif, tampilan web bisa berantakan, teks terlalu kecil, tombol sulit diklik, atau bahkan sebagian konten tidak terlihat. Dengan responsive design, tata letak dapat menyesuaikan secara otomatis, sehingga pengalaman pengguna lebih nyaman, akses lebih cepat, dan interaksi menjadi lebih mudah di semua perangkat.
+
+<h1>3. Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!</h1>
+Margin, border, dan padding adalah tiga konsep utama dalam CSS box model yang mengatur ruang di sekitar elemen. Margin adalah jarak luar elemen, fungsinya memberi ruang antara satu elemen dengan elemen lain di sekitarnya. Border adalah garis yang mengelilingi elemen, menjadi semacam bingkai yang berada di antara margin dan padding. Sedangkan padding adalah jarak dalam elemen, yaitu ruang antara konten elemen (seperti teks atau gambar) dengan garis bordernya.
+
+Implementasi dengan CSS:
+.box {
+  margin: 20px;        /* jarak elemen dengan luar */
+  border: 2px solid black; /* garis tepi elemen */
+  padding: 15px;       /* jarak konten ke border */
+}
+
+<h1>4. Jelaskan konsep flex box dan grid layout beserta kegunaannya!</h1>
+Flexbox (Flexible Box) bekerja satu dimensi, artinya lebih cocok untuk mengatur baris atau kolom saja. Misalnya, saat kita ingin menaruh beberapa tombol agar sejajar rapi di satu baris, flexbox sangat berguna karena elemen di dalamnya bisa otomatis menyesuaikan ukuran dan posisi, baik rata kiri, tengah, kanan, atau dibagi rata.
+
+Sementara itu, Grid Layout bekerja dua dimensi, sehingga bisa mengatur baris dan kolom sekaligus. Grid lebih tepat digunakan ketika kita ingin membuat struktur halaman yang kompleks, misalnya layout majalah online dengan banyak bagian seperti header, sidebar, konten utama, dan footer.
+
+<h1>5. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial)!</h1>
+Pertama, saya mulai dengan mempersiapkan konfigurasi static files dan menghubungkan Tailwind serta file CSS global ke dalam proyek. Dengan begitu, semua halaman bisa diberi gaya konsisten dan saya juga bisa menambahkan styling custom sesuai kebutuhan.
+
+Setelah itu, saya menambahkan fitur edit dan hapus product. Untuk edit, saya membuat form yang otomatis terisi data product yang sudah ada sehingga pengguna bisa memperbarui informasi dengan mudah. Untuk hapus, saya menambahkan aksi khusus yang hanya bisa dilakukan oleh pemilik product, biasanya disertai konfirmasi agar tidak terhapus secara tidak sengaja.
+
+Selanjutnya saya melakukan kustomisasi tampilan dengan Tailwind. Halaman login dan register saya buat lebih menarik dengan tata letak yang rapi dan elemen visual yang konsisten. Halaman tambah dan edit product juga saya desain dengan form yang lebih modern, sedangkan halaman detail product saya buat dengan penekanan pada informasi utama, seperti gambar produk, harga, dan deskripsi.
+
+Untuk halaman daftar product, saya menambahkan kondisi khusus. Jika belum ada produk, maka halaman akan menampilkan ilustrasi atau gambar kosong dengan pesan bahwa belum ada product yang terdaftar. Jika sudah ada produk, maka setiap produk ditampilkan dalam bentuk card. Card ini berisi gambar, nama, deskripsi singkat, harga, serta dua tombol: edit dan delete. Dengan begitu pengguna bisa langsung mengelola produk dari tampilan utama tanpa harus membuka halaman lain terlebih dahulu.
+
+Terakhir, saya membuat navbar yang responsif. Navbar ini memuat link ke halaman utama, tambah product, login, logout, dan sebagainya. Desainnya saya buat agar otomatis menyesuaikan ukuran layar: di desktop tampil penuh, sedangkan di perangkat mobile berubah menjadi menu yang bisa dibuka-tutup. Selain itu, link yang sedang aktif juga diberi highlight supaya pengguna tahu halaman mana yang sedang dibuka.
