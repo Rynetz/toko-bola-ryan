@@ -39,7 +39,7 @@
         </div>
       {% endif %}
 
-      <form method="POST" action="" class="space-y-5">
+      <form id="registerForm" method="POST" action="" class="space-y-5">
         {% csrf_token %}
         
         <div>
@@ -75,12 +75,17 @@
             placeholder="Confirm your password">
         </div>
 
-        <button 
+        <button
+          id="registerButton" 
           type="submit" 
           class="w-full bg-cyan-600 text-white font-medium py-3 px-4 rounded hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 transition duration-200">
           Create Account
         </button>
       </form>
+
+      <div id="registerError" class="hidden mt-4 px-4 py-3 rounded text-sm border bg-red-50 border-red-200 text-red-700"></div>
+      <div id="registerSuccess" class="hidden mt-4 px-4 py-3 rounded text-sm border bg-green-50 border-green-200 text-green-700"></div>
+
 
       <!-- Messages Display -->
       {% if messages %}
@@ -115,4 +120,69 @@
     </div>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const registerForm = document.getElementById("registerForm");
+  const registerButton = document.getElementById("registerButton");
+  const registerError = document.getElementById("registerError");
+  const registerSuccess = document.getElementById("registerSuccess");
+
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    registerError.classList.add("hidden");
+    registerSuccess.classList.add("hidden");
+
+    const formData = new FormData(registerForm);
+    registerButton.disabled = true;
+    registerButton.innerHTML = `
+      <svg class="animate-spin h-5 w-5 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      Creating...
+    `;
+
+    try {
+      const response = await fetch(registerForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        showToast("Account created successfully!", "success");
+        showSuccess("Account created successfully! Redirecting...");
+        setTimeout(() => {
+          window.location.href = "{% url 'main:login' %}";
+        }, 1500);
+      } else {
+        showError(data.error || "Failed to create account. Please try again.");
+        showToast(data.error || "Failed to create account.", "error");
+      }
+    } catch (error) {
+      showError("An unexpected error occurred. Please try again.");
+      console.error("Register error:", error);
+    } finally {
+      registerButton.disabled = false;
+      registerButton.textContent = "Create Account";
+    }
+  });
+
+  function showError(message) {
+    registerError.textContent = message;
+    registerError.classList.remove("hidden");
+  }
+
+  function showSuccess(message) {
+    registerSuccess.textContent = message;
+    registerSuccess.classList.remove("hidden");
+  }
+});
+</script>
+
 {% endblock content %}

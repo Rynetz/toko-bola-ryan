@@ -39,7 +39,8 @@
         </div>
       {% endif %}
 
-      <form method="POST" action="" class="space-y-6">
+      <form id="loginForm" method="POST" action="{% url 'main:login' %}" class="space-y-6">
+
         {% csrf_token %}
         
         <div>
@@ -65,11 +66,14 @@
         </div>
 
         <button 
+          id="loginButton"
           type="submit" 
           class="w-full bg-cyan-600 text-white font-medium py-3 px-4 rounded-md hover:bg-cyan-700 transition-colors">
           Sign In
         </button>
       </form>
+      <div id="loginError" class="hidden mt-4 px-4 py-3 rounded-md text-sm border bg-red-50 border-red-200 text-red-700"></div>
+
 
       <!-- Messages Display -->
       {% if messages %}
@@ -103,4 +107,64 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  const loginButton = document.getElementById("loginButton");
+  const loginError = document.getElementById("loginError");
+
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault(); // cegah reload
+    loginError.classList.add("hidden"); // sembunyikan pesan error
+
+    const formData = new FormData(loginForm);
+    loginButton.disabled = true;
+    loginButton.innerHTML = `
+      <svg class="animate-spin h-5 w-5 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+      </svg>
+      Signing in...
+    `;
+
+    try {
+      const response = await fetch(loginForm.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-Requested-With": "XMLHttpRequest", // penting untuk deteksi AJAX di view Django
+        },
+      });
+
+      // Cek status respon
+      if (response.ok) {
+        showToast("Login successful!", "success");
+        // Kalau sukses login, redirect
+        setTimeout(() => {
+        window.location.href = "{% url 'main:show_main' %}";
+        }, 1500);
+      } else {
+        const data = await response.json();
+        showToast("Invalid username or password", "error");
+      }
+    } catch (error) {
+      showError("An unexpected error occurred. Please try again.");
+      console.error("Login error:", error);
+    } finally {
+      loginButton.disabled = false;
+      loginButton.textContent = "Sign In";
+    }
+  });
+
+  function showError(message) {
+    loginError.textContent = message;
+    loginError.classList.remove("hidden");
+  }
+});
+</script>
 {% endblock content %}
